@@ -23,25 +23,6 @@ $HOME/.side/cosmovisor/genesis/bin/sided init $MONIKER --chain-id sidechain-test
 curl -Ls https://snapshots.kjnodes.com/side-testnet/genesis.json > $HOME/.side/config/genesis.json
 curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
 
-min_am=10
-max_am=64
-PORT=$(shuf -i $min_am-$max_am -n 1)
-echo $PORT
-
-sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:2${PORT}57\"|" $HOME/.side/config/config.toml
-sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${PORT}56\"|" $HOME/.side/config/config.toml
-sed -i.bak -e "s|^pprof_laddr = \"localhost:6060\"|laddr = \"localhost:60${PORT}\"|" $HOME/.side/config/config.toml
-sed -i.bak -e "s|^address = \"localhost:9090\"|laddr = \"localhost:90${PORT}\"|" $HOME/.side/config/app.toml
-
-sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@side-testnet.rpc.kjnodes.com:17459\"|" $HOME/.side/config/config.toml
-sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.005uside\"|" $HOME/.side/config/app.toml
-sed -i \
-  -e 's|^pruning *=.*|pruning = "custom"|' \
-  -e 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|' \
-  -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' \
-  -e 's|^pruning-interval *=.*|pruning-interval = "19"|' \
-  $HOME/.side/config/app.toml
-
 sudo tee /etc/systemd/system/side.service > /dev/null << EOF
 [Unit]
 Description=side node service
@@ -63,6 +44,25 @@ WantedBy=multi-user.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl enable side.service
+
+min_am=10
+max_am=64
+PORT=$(shuf -i $min_am-$max_am -n 1)
+echo $PORT
+
+sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:2${PORT}57\"|" $HOME/.side/config/config.toml
+sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${PORT}56\"|" $HOME/.side/config/config.toml
+sed -i.bak -e "s|^pprof_laddr = \"localhost:6060\"|laddr = \"localhost:60${PORT}\"|" $HOME/.side/config/config.toml
+sed -i.bak -e "s|^address = \"localhost:9090\"|laddr = \"localhost:90${PORT}\"|" $HOME/.side/config/app.toml
+
+sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@side-testnet.rpc.kjnodes.com:17459\"|" $HOME/.side/config/config.toml
+sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.005uside\"|" $HOME/.side/config/app.toml
+sed -i \
+  -e 's|^pruning *=.*|pruning = "custom"|' \
+  -e 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|' \
+  -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' \
+  -e 's|^pruning-interval *=.*|pruning-interval = "19"|' \
+  $HOME/.side/config/app.toml
 
 curl -L https://snapshots.kjnodes.com/side-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
