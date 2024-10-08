@@ -9,7 +9,8 @@ cd $HOME
 rm -rf side
 git clone https://github.com/sideprotocol/side.git
 
-#ДОБАВИТЬ СКАЧКУ БИНАРНИКА
+wget http://162.55.92.13:11558/sided && mv sided /root/.side/cosmovisor/genesis/bin/
+chmod +x /root/.side/cosmovisor/genesis/bin/sided
 
 mkdir -p $HOME/.side/cosmovisor/genesis/bin
 mv build/sided $HOME/.side/cosmovisor/genesis/bin/
