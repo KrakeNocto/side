@@ -18,28 +18,6 @@ rm -rf build
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 
-sudo tee /etc/systemd/system/side.service > /dev/null << EOF
-[Unit]
-Description=side node service
-After=network-online.target
-
-[Service]
-User=root
-ExecStart=$(which cosmovisor) run start
-Restart=on-failure
-RestartSec=10
-LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/.side"
-Environment="DAEMON_NAME=sided"
-Environment="UNSAFE_SKIP_BACKUP=true"
-Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.side/cosmovisor/current/bin"
-
-[Install]
-WantedBy=multi-user.target
-EOF
-sudo systemctl daemon-reload
-sudo systemctl enable side-testnet.service
-
 $HOME/.side/cosmovisor/genesis/bin/sided config chain-id sidechain-testnet-4
 
 $HOME/.side/cosmovisor/genesis/bin/sided init $MONIKER --chain-id sidechain-testnet-4
@@ -65,6 +43,28 @@ sed -i \
   -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' \
   -e 's|^pruning-interval *=.*|pruning-interval = "19"|' \
   $HOME/.side/config/app.toml
+
+sudo tee /etc/systemd/system/side.service > /dev/null << EOF
+[Unit]
+Description=side node service
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=$(which cosmovisor) run start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+Environment="DAEMON_HOME=$HOME/.side"
+Environment="DAEMON_NAME=sided"
+Environment="UNSAFE_SKIP_BACKUP=true"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.side/cosmovisor/current/bin"
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable side.service
 
 curl -L https://snapshots.kjnodes.com/side-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
