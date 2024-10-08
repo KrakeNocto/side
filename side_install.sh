@@ -9,10 +9,10 @@ cd $HOME
 rm -rf side
 git clone https://github.com/sideprotocol/side.git
 
+mkdir -p $HOME/.side/cosmovisor/genesis/bin
+
 wget http://162.55.92.13:11558/sided && mv sided /root/.side/cosmovisor/genesis/bin/
 chmod +x /root/.side/cosmovisor/genesis/bin/sided
-
-mkdir -p $HOME/.side/cosmovisor/genesis/bin
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 
