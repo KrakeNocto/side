@@ -13,8 +13,6 @@ wget http://162.55.92.13:11558/sided && mv sided /root/.side/cosmovisor/genesis/
 chmod +x /root/.side/cosmovisor/genesis/bin/sided
 
 mkdir -p $HOME/.side/cosmovisor/genesis/bin
-mv build/sided $HOME/.side/cosmovisor/genesis/bin/
-rm -rf build
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.6.0
 
