@@ -50,8 +50,8 @@ echo $PORT
 
 sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:2${PORT}57\"|" $HOME/.side/config/config.toml
 sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${PORT}56\"|" $HOME/.side/config/config.toml
-sed -i.bak -e "s|^pprof_laddr = \"localhost:6060\"|laddr = \"localhost:60${PORT}\"|" $HOME/.side/config/config.toml
-sed -i.bak -e "s|^address = \"localhost:9090\"|laddr = \"localhost:90${PORT}\"|" $HOME/.side/config/app.toml
+sed -i.bak -e "s|^pprof_laddr = \"localhost:6060\"|pprof_laddr = \"localhost:60${PORT}\"|" $HOME/.side/config/config.toml
+sed -i.bak -e "s|^address = \"localhost:9090\"|address = \"localhost:90${PORT}\"|" $HOME/.side/config/app.toml
 
 sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@side-testnet.rpc.kjnodes.com:17459\"|" $HOME/.side/config/config.toml
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.005uside\"|" $HOME/.side/config/app.toml
