@@ -34,7 +34,7 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/.side"
+Environment="DAEMON_HOME=$HOME/.sided"
 Environment="DAEMON_NAME=side"
 Environment="UNSAFE_SKIP_BACKUP=true"
 Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.side/cosmovisor/current/bin"
@@ -42,8 +42,6 @@ Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/
 [Install]
 WantedBy=multi-user.target
 EOF
-sudo systemctl daemon-reload
-sudo systemctl enable side.service
 
 min_am=10
 max_am=64
@@ -69,4 +67,6 @@ curl -L https://snapshots.kjnodes.com/side-testnet/snapshot_latest.tar.lz4 | tar
 
 rm side_install.sh
 
+sudo systemctl daemon-reload
+sudo systemctl enable side.service
 sudo systemctl start side.service && sudo journalctl -u side.service -f --no-hostname -o cat
