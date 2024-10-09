@@ -7,6 +7,7 @@ sed -i 's|ExecStart=/root/go/bin/cosmovisor run start --home /root/.side|ExecSta
 sed -i 's|Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"|Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"|' /etc/systemd/system/sided.service
 
 curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
+curl -Ls https://snapshots.kjnodes.com/side-testnet/genesis.json > $HOME/.side/config/genesis.json
 
 cp $HOME/.side/data/priv_validator_state.json $HOME/.side/priv_validator_state.json.backup
 rm -rf $HOME/.side/data
