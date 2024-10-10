@@ -20,8 +20,8 @@ $HOME/.side/cosmovisor/genesis/bin/sided config chain-id sidechain-testnet-4
 
 $HOME/.side/cosmovisor/genesis/bin/sided init $MONIKER --chain-id sidechain-testnet-4
 
-curl -Ls https://snapshots.kjnodes.com/side-testnet/genesis.json > $HOME/.side/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
+wget -O $HOME/.side/config/genesis.json https://server-5.itrocket.net/testnet/side/genesis.json
+wget -O $HOME/.side/config/addrbook.json  https://server-5.itrocket.net/testnet/side/addrbook.json
 
 sudo tee /etc/systemd/system/side.service > /dev/null << EOF
 [Unit]
