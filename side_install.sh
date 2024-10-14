@@ -1,5 +1,5 @@
 sudo apt -q update
-sudo apt -qy install curl git jq lz4 build-essential
+sudo apt -qy install curl git jq lz4 libwasmvm-dev build-essential
 sudo apt -qy upgrade
 
 echo "Moniker:"
