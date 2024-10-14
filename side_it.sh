@@ -72,7 +72,7 @@ sudo tee /etc/systemd/system/side.service > /dev/null <<EOF
 Description=side node
 After=network-online.target
 [Service]
-User=$USER
+User=root
 WorkingDirectory=$HOME/.side
 ExecStart=$(which sided) start --home $HOME/.side
 Restart=on-failure
@@ -91,5 +91,5 @@ fi
 
 # enable and start service
 sudo systemctl daemon-reload
-sudo systemctl enable sided
-sudo systemctl restart sided && sudo journalctl -u sided
+sudo systemctl enable side
+sudo systemctl restart side && sudo journalctl -u side
