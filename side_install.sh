@@ -17,7 +17,7 @@ echo "Moniker:"
 read -r MONIKER
 
 cd $HOME
-rm -rf side
+rm -rf .side
 git clone https://github.com/sideprotocol/side.git
 
 mkdir -p $HOME/.side/cosmovisor/genesis/bin
