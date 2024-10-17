@@ -37,7 +37,7 @@ min_sum=2500000
 max_sum=4900000
 sum_to_send=$(shuf -i $min_sum-$max_sum -n 1)
 
-min_fee=1400
+min_fee=1300
 max_fee=1500
 fees=$(shuf -i $min_fee-$max_fee -n 1)
 
