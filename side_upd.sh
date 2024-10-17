@@ -1,4 +1,4 @@
-systemctl stop side
+systemctl stop sided
 
 mkdir -p /root/.side/cosmovisor/upgrades/v0.9.2/bin/
 wget http://148.251.46.18:11558/sided && mv sided /root/.side/cosmovisor/upgrades/v0.9.2/bin/
