@@ -53,11 +53,24 @@ sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 echo "Creating validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
+min_am=600
+max_am=43200
+am=$(shuf -i $min_am-$max_am -n 1)
+
+min_r=5
+max_r=10
+rate=$(shuf -i $min_r-$max_r -n 1)
+rate=$(printf "%02d" $rate)
+
+min_com=10
+max_com=20
+comission=$(shuf -i $min_com-$max_com -n 1)
+
 /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided --node tcp://0.0.0.0:$PORT tx staking create-validator \
---amount 1000000uside \
+--amount ${am}uside \
 --from wallet_2 \
---commission-rate 0.1 \
---commission-max-rate 0.2 \
+--commission-rate 0.${rate} \
+--commission-max-rate 0.${comission} \
 --commission-max-change-rate 0.01 \
 --min-self-delegation 1 \
 --pubkey $(/root/.side/cosmovisor/upgrades/v0.9.2/bin/sided tendermint show-validator) \
@@ -66,8 +79,9 @@ sleep $sleep_time_c
 --website "" \
 --details "" \
 --chain-id sidechain-testnet-4 \
---gas auto --gas-adjustment 1.5 --fees 1500uside \
+--gas auto --gas-adjustment 1.5 --fees ${fees}uside \
 -y
 
-
 /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided keys delete wallet_2 --keyring-backend test -y
+
+rm create_validator.sh
