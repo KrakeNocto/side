@@ -33,7 +33,7 @@ cd $HOME
 rm -rf side
 git clone https://github.com/sideprotocol/side.git
 cd side
-git checkout v0.9.1
+git checkout v0.9.2
 make install
 
 sided config node tcp://localhost:${SIDE_PORT}657
