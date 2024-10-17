@@ -33,12 +33,12 @@ echo "wallet_2: $WALLET_2"
 echo "Sending tokens after $sleep_time_s seconds"
 sleep $sleep_time_s
 
-min_sum=600
-max_sum=43200
+min_sum=1200000
+max_sum=4900000
 sum_to_send=$(shuf -i $min_sum-$max_sum -n 1)
 
-min_fee=600
-max_fee=43200
+min_fee=1400
+max_fee=1500
 fees=$(shuf -i $min_fee-$max_fee -n 1)
 
 PORT=$(grep -oP '127\.0\.0\.1:\K[0-9]*57' .side/config/config.toml)
@@ -53,8 +53,8 @@ sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 echo "Creating validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
-min_am=600
-max_am=43200
+min_am=1000000
+max_am=4500000
 am=$(shuf -i $min_am-$max_am -n 1)
 
 min_r=5
