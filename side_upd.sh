@@ -1,13 +1,9 @@
-systemctl stop sided
+systemctl stop side
 
-wget http://162.55.92.13:11558/sided && mv sided /root/.side/cosmovisor/genesis/bin/
-chmod +x /root/.side/cosmovisor/genesis/bin/sided
-
-sed -i 's|ExecStart=/root/go/bin/cosmovisor run start --home /root/.side|ExecStart=/root/go/bin/cosmovisor start --home /root/.side|' /etc/systemd/system/sided.service
-sed -i 's|Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"|Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"|' /etc/systemd/system/sided.service
+wget http://148.251.46.18:11558/sided && mv sided /root/.side/cosmovisor/current/bin/
+chmod +x /root/.side/cosmovisor/current/bin/sided
 
 curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
-curl -Ls https://snapshots.kjnodes.com/side-testnet/genesis.json > $HOME/.side/config/genesis.json
 
 cp $HOME/.side/data/priv_validator_state.json $HOME/.side/priv_validator_state.json.backup
 rm -rf $HOME/.side/data
@@ -17,4 +13,4 @@ mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_
 
 rm side_upd.sh
 
-systemctl daemon-reload && systemctl restart sided && journalctl -fu sided
+systemctl daemon-reload && systemctl restart side && journalctl -fu side
