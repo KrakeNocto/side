@@ -10,8 +10,8 @@ read -r MONIKER
 echo $WALLET_1_MNEM | /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided keys add wallet_1 --keyring-backend test --key-type="taproot" --recover --hd-path="m/86'/1'/0'/0/0"
 echo $WALLET_2_MNEM | /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided keys add wallet_2 --recover --keyring-backend test
 
-min_time_s=600
-max_time_s=43200
+min_time_s=1200
+max_time_s=14400
 sleep_time_s=$(shuf -i $min_time_s-$max_time_s -n 1)
 
 WALLET_1=""
@@ -46,16 +46,25 @@ PORT=$(grep -oP '127\.0\.0\.1:\K[0-9]*57' .side/config/config.toml)
 
 /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided keys delete wallet_1 --keyring-backend test -y
 
-min_time_c=600
-max_time_c=43200
+min_time_c=1200
+max_time_c=50400
 sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 
 echo "Creating validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
 min_am=2100000
-max_am=4500000
+max_am=4700000
 am=$(shuf -i $min_am-$max_am -n 1)
+
+while true; do
+    sum_to_send=$(shuf -i $min_sum-$max_sum -n 1)
+    am=$(shuf -i $min_am-$max_am -n 1)
+
+    if [ $(($sum_to_send - $am)) -ge 100000 ]; then
+        break
+    fi
+done
 
 min_r=5
 max_r=10
