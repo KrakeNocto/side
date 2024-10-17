@@ -1,7 +1,8 @@
 systemctl stop side
 
-wget http://148.251.46.18:11558/sided && mv sided /root/.side/cosmovisor/current/bin/
-chmod +x /root/.side/cosmovisor/current/bin/sided
+mkdir -p /root/.side/cosmovisor/upgrades/v0.9.2/bin/
+wget http://148.251.46.18:11558/sided && mv sided /root/.side/cosmovisor/upgrades/v0.9.2/bin/
+chmod +x /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided
 
 curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
 
