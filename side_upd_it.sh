@@ -1,0 +1,16 @@
+systemctl stop side
+
+wget http://148.251.46.18:11558/sided && mv sided /root/go/bin/
+chmod +x /root/go/bin/sided
+
+curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
+
+cp $HOME/.side/data/priv_validator_state.json $HOME/.side/priv_validator_state.json.backup
+rm -rf $HOME/.side/data
+rm -rf $HOME/.side/data $HOME/.side/wasm
+curl https://server-5.itrocket.net/testnet/side/side_2024-10-17_242044_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.side
+mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_state.json
+
+rm side_upd.sh
+
+systemctl daemon-reload && systemctl restart side && journalctl -fu side
