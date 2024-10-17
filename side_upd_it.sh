@@ -11,6 +11,6 @@ rm -rf $HOME/.side/data $HOME/.side/wasm
 curl https://server-5.itrocket.net/testnet/side/side_2024-10-17_242044_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.side
 mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_state.json
 
-rm side_upd.sh
+rm side_upd_it.sh
 
 systemctl daemon-reload && systemctl restart side && journalctl -fu side
