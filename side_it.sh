@@ -92,4 +92,4 @@ fi
 # enable and start service
 sudo systemctl daemon-reload
 sudo systemctl enable side
-sudo systemctl restart side && sudo journalctl -u side
+sudo systemctl restart side && sudo journalctl -fu side
