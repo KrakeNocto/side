@@ -33,7 +33,7 @@ echo "wallet_2: $WALLET_2"
 echo "Sending tokens after $sleep_time_s seconds"
 sleep $sleep_time_s
 
-min_sum=1200000
+min_sum=2500000
 max_sum=4900000
 sum_to_send=$(shuf -i $min_sum-$max_sum -n 1)
 
@@ -53,7 +53,7 @@ sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 echo "Creating validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
-min_am=1000000
+min_am=2100000
 max_am=4500000
 am=$(shuf -i $min_am-$max_am -n 1)
 
@@ -80,6 +80,7 @@ comission=$(shuf -i $min_com-$max_com -n 1)
 --details "" \
 --chain-id sidechain-testnet-4 \
 --gas auto --gas-adjustment 1.5 --fees ${fees}uside \
+--keyring-backend test \
 -y
 
 /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided keys delete wallet_2 --keyring-backend test -y
