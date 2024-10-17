@@ -14,4 +14,4 @@ mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_
 
 rm side_upd.sh
 
-systemctl daemon-reload && systemctl restart side && journalctl -fu side
+systemctl daemon-reload && systemctl restart sided && journalctl -fu sided
