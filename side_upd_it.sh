@@ -8,7 +8,7 @@ curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/
 cp $HOME/.side/data/priv_validator_state.json $HOME/.side/priv_validator_state.json.backup
 rm -rf $HOME/.side/data
 rm -rf $HOME/.side/data $HOME/.side/wasm
-curl https://server-5.itrocket.net/testnet/side/side_2024-10-17_242044_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.side
+curl https://server-5.itrocket.net/testnet/side/side_2024-10-18_255075_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.side
 mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_state.json
 
 rm side_upd_it.sh
