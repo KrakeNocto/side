@@ -10,9 +10,9 @@ read -r MONIKER
 echo $WALLET_1_MNEM | /root/go/bin/sided keys add wallet_1 --keyring-backend test --key-type="taproot" --recover --hd-path="m/86'/1'/0'/0/0"
 echo $WALLET_2_MNEM | /root/go/bin/sided keys add wallet_2 --recover --keyring-backend test
 
-echo "Sleeping 129600 seconds (36 hours)"
+echo "Sleeping 172800 seconds (48 hours)"
 
-sleep 129600
+sleep 172800
 
 min_time_s=1200
 max_time_s=14400
