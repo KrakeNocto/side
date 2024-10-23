@@ -5,7 +5,7 @@ read -r WALLET_2_MNEM
 echo "Enter Moniker:"
 read -r MONIKER
 
-echo $WALLET_2_MNEM | /root/.side/cosmovisor/upgrades/v0.9.3/bin/sided keys add wallet_2 --recover --keyring-backend test
+echo $WALLET_2_MNEM | /root/go/bin/sided keys add wallet_2 --recover --keyring-backend test
 
 echo "Sleeping 172800 seconds (48 hours)"
 sleep 172800
@@ -40,14 +40,14 @@ min_am=2100000
 max_am=4700000
 am=$(shuf -i $min_am-$max_am -n 1)
 
-/root/.side/cosmovisor/upgrades/v0.9.3/bin/sided --node tcp://0.0.0.0:$PORT tx staking create-validator \
+/root/go/bin/sided --node tcp://0.0.0.0:$PORT tx staking create-validator \
 --amount ${am}uside \
 --from wallet_2 \
 --commission-rate 0.${rate} \
 --commission-max-rate 0.${comission} \
 --commission-max-change-rate 0.01 \
 --min-self-delegation 1 \
---pubkey $(/root/.side/cosmovisor/upgrades/v0.9.3/bin/sided tendermint show-validator) \
+--pubkey $(/root/go/bin/sided tendermint show-validator) \
 --moniker "$MONIKER" \
 --identity "" \
 --website "" \
@@ -57,6 +57,6 @@ am=$(shuf -i $min_am-$max_am -n 1)
 --keyring-backend test \
 -y
 
-/root/.side/cosmovisor/upgrades/v0.9.3/bin/sided keys delete wallet_2 --keyring-backend test -y
+/root/go/bin/sided keys delete wallet_2 --keyring-backend test -y
 
 rm tx_to_create_val.sh
