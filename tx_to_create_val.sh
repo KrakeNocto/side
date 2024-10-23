@@ -7,8 +7,8 @@ read -r MONIKER
 
 echo $WALLET_2_MNEM | /root/go/bin/sided keys add wallet_2 --recover --keyring-backend test
 
-echo "Sleeping 0 seconds (0 hours)"
-sleep 0
+echo "Sleeping 43200 seconds (12 hours)"
+sleep 43200
 
 WALLET_2=""
 
