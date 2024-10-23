@@ -1,4 +1,4 @@
-systemctl stop sided
+systemctl stop side
 
 wget -O $HOME/.side/config/addrbook.json https://server-5.itrocket.net/testnet/side/addrbook.json
 
@@ -16,4 +16,4 @@ mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_
 
 rm side_upd.sh
 
-systemctl daemon-reload && systemctl restart sided && journalctl -fu sided
+systemctl daemon-reload && systemctl restart side && journalctl -fu side
