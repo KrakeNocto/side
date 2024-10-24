@@ -36,7 +36,7 @@ min_com=10
 max_com=20
 comission=$(shuf -i $min_com-$max_com -n 1)
 
-min_am=2100000
+min_am=1100000
 max_am=3700000
 am=$(shuf -i $min_am-$max_am -n 1)
 
