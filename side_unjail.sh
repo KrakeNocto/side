@@ -14,7 +14,7 @@ echo "Unjail validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
 PORT=$(grep -oP '(0\.0\.0\.0|127\.0\.0\.1):\K[0-9]*57' .side/config/config.toml)
-/root/go/bin/sided --node tcp://0.0.0.0:$PORT tx slashing unjail --from wallet -y
+/root/go/bin/sided --node tcp://0.0.0.0:$PORT tx slashing unjail --from wallet --keyring-backend test -y
 
 /root/go/bin/sided keys delete wallet --keyring-backend test -y
 
