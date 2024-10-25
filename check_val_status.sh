@@ -14,10 +14,13 @@ VALIDATOR_ADDRESSES=(
 
 for VALIDATOR_ADDRESS in "${VALIDATOR_ADDRESSES[@]}"; do
   response=$(/root/go/bin/sided query staking validator "$VALIDATOR_ADDRESS" -o json)
+
+  status=$(echo "$response" | jq -r '.validator.status')
+  jailed=$(echo "$response" | jq -r '.validator.jailed')
   
  if [[ "$status" == "BOND_STATUS_BONDED" && "$jailed" == "false" ]]; then
     echo "$VALIDATOR_ADDRESS активен"
-    echo "$VALIDATOR_ADDRESS" >> "$ACTIVE_OUTPUT_FILE"
+    echo "$VALIDATOR_ADDRESS" >> "$OUTPUT_FILE"
   elif [[ "$jailed" == "true" ]]; then
     echo "$VALIDATOR_ADDRESS находится в статусе jailed"
     echo "$VALIDATOR_ADDRESS" >> "$JAILED_OUTPUT_FILE"
