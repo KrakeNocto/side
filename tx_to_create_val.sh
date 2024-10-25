@@ -21,6 +21,15 @@ sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 echo "Creating validator after $sleep_time_c seconds"
 sleep $sleep_time_c
 
+BALANCE=$(/root/go/bin/sided query bank balance wallet_2 --keyring-backend test --output json | jq -r '.balance.amount')
+STAKING_AMOUNT=$((BALANCE - 100000))
+
+if [ "$STAKING_AMOUNT" -le 0 ]; then
+    echo "Insufficient balance for staking. Balance: ${BALANCE}uside"
+    exit 1
+fi
+
+
 min_fee=1300
 max_fee=1500
 fees=$(shuf -i $min_fee-$max_fee -n 1)
@@ -36,12 +45,8 @@ min_com=10
 max_com=20
 comission=$(shuf -i $min_com-$max_com -n 1)
 
-min_am=1100000
-max_am=3700000
-am=$(shuf -i $min_am-$max_am -n 1)
-
 /root/go/bin/sided --node tcp://0.0.0.0:$PORT tx staking create-validator \
---amount ${am}uside \
+--amount ${STAKING_AMOUNT}uside \
 --from wallet_2 \
 --commission-rate 0.${rate} \
 --commission-max-rate 0.${comission} \
