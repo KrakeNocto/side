@@ -3,7 +3,7 @@ systemctl stop side
 wget -O $HOME/.side/config/addrbook.json https://server-5.itrocket.net/testnet/side/addrbook.json
 
 mkdir -p /root/.side/cosmovisor/upgrades/v0.9.4/bin/
-wget http://162.55.92.13:12312/sided && cp sided /root/.side/cosmovisor/upgrades/v0.9.2/bin/ && cp sided /root/.side/cosmovisor/upgrades/v0.9.3/bin/ && mv /root/.side/cosmovisor/upgrades/v0.9.4/bin/
+wget http://162.55.92.13:12312/sided && cp sided /root/.side/cosmovisor/upgrades/v0.9.2/bin/ && cp sided /root/.side/cosmovisor/upgrades/v0.9.3/bin/ && mv sided /root/.side/cosmovisor/upgrades/v0.9.4/bin/
 chmod +x /root/.side/cosmovisor/upgrades/v0.9.2/bin/sided
 chmod +x /root/.side/cosmovisor/upgrades/v0.9.3/bin/sided
 chmod +x /root/.side/cosmovisor/upgrades/v0.9.4/bin/sided
