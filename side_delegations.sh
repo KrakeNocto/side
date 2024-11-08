@@ -26,15 +26,15 @@ delegate() {
     fees=$(shuf -i $min_fee-$max_fee -n 1)
 
     wallet_name=$(echo "$mnemonic" | shasum | awk '{print $1}')
-    echo "$mnemonic" | cosmosd keys add "$wallet_name" --recover --key-type="taproot" --hd-path="m/86'/1'/0'/0/0" --keyring-backend test --output json > /dev/null
+    echo "$mnemonic" | $(which sided) keys add "$wallet_name" --recover --key-type="taproot" --hd-path="m/86'/1'/0'/0/0" --keyring-backend test --output json > /dev/null
 
-    delegator_address=$(cosmosd keys show "$wallet_name" -a --keyring-backend test)
+    delegator_address=$($(which sided) keys show "$wallet_name" -a --keyring-backend test)
 
-    cosmosd tx staking delegate "$validator" "$amount$DENOM" --from "$delegator_address" --chain-id "$CHAIN_ID" --gas auto --gas-adjustment 1.5 --fees ${fees}uside --keyring-backend test --yes
+    $(which sided) tx staking delegate "$validator" "$amount$DENOM" --from "$delegator_address" --chain-id "$CHAIN_ID" --gas auto --gas-adjustment 1.5 --fees ${fees}uside --keyring-backend test --yes
 
     echo "Wallet: $delegator_address -> Validator: $validator, Sum: $amount$DENOM" >> "$LOG_FILE"
 
-    cosmosd keys delete "$wallet_name" --keyring-backend test --yes > /dev/null
+    $(which sided) keys delete "$wallet_name" --keyring-backend test --yes > /dev/null
 
     sleep_time=$((RANDOM % (SLEEP_MAX - SLEEP_MIN + 1) + SLEEP_MIN))
     echo "Sleeping $sleep_time seconds..."
