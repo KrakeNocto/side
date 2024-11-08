@@ -16,6 +16,19 @@ SLEEP_MAX=30
 echo "Tx logs file" > "$LOG_FILE"
 echo "------------------------------------------" >> "$LOG_FILE"
 
+check_balance() {
+    local delegator_address="$1"
+    local required_amount="$2"
+
+    balance=$($(which sided) query bank balances "$delegator_address" --output json | jq -r ".balances[] | select(.denom==\"$DENOM\") | .amount")
+
+    if [[ -z "$balance" || "$balance" -lt "$required_amount" ]]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
 delegate() {
     local mnemonic="$1"
     local validator="$2"
@@ -46,6 +59,16 @@ readarray -t validators < "$VALIDATORS_FILE"
 
 for validator in "${validators[@]}"; do
     num_delegators=$((RANDOM % (MAX_DELEGATORS - MIN_DELEGATORS + 1) + MIN_DELEGATORS))
+
+    for ((i=0; i<num_delegators; i++)); do
+        if [[ ${#mnemonics[@]} -eq 0 ]]; then
+            echo "No mnems left. Stoped"
+            exit 0
+        fi
+
+        index=$((RANDOM % ${#mnemonics[@]}))
+        mnemonic="${mnemonics[$index]}"
+        mnemonics=("${mnemonics[@]:0:$index}" "${mnemonics[@]:$((index + 1))}")
     
     for ((i=0; i<num_delegators; i++)); do
         mnemonic=${mnemonics[RANDOM % ${#mnemonics[@]}]}
@@ -57,12 +80,3 @@ for validator in "${validators[@]}"; do
 done
 
 echo "Delegation complete. Addresses saved"
-
-
-
-
-
-
-
-
-rm side_delegations.sh
