@@ -4,11 +4,11 @@ MNEMONICS_FILE="mnemonics"
 VALIDATORS_FILE="validators"
 LOG_FILE="delegations"
 
-CHAIN_ID="sidechain-testnet-4"         
-DENOM="uside"                 
-AMOUNT_MIN=39000000               
-AMOUNT_MAX=48999999              
-MIN_DELEGATORS=6               
+CHAIN_ID="sidechain-testnet-4"
+DENOM="uside"
+AMOUNT_MIN=39000000
+AMOUNT_MAX=48999999
+MIN_DELEGATORS=6
 MAX_DELEGATORS=15
 SLEEP_MIN=0
 SLEEP_MAX=30
