@@ -1,13 +1,13 @@
 echo "Mnemonic from wallet_2 (send to):"
 read -r WALLET_2_MNEM
 
-echo $WALLET_2_MNEM | /root/.side/cosmovisor/upgrades/v0.9.3/bin/sided keys add wallet --recover --keyring-backend test
+echo $WALLET_2_MNEM | $(which sided) keys add wallet --recover --keyring-backend test
 
 echo "Sleeping 0 seconds (0 hours)"
 sleep 0
 
 min_time_c=600
-max_time_c=86400
+max_time_c=259200
 sleep_time_c=$(shuf -i $min_time_c-$max_time_c -n 1)
 
 echo "Unjail validator after $sleep_time_c seconds"
@@ -18,8 +18,8 @@ max_fee=1500
 fees=$(shuf -i $min_fee-$max_fee -n 1)
 
 PORT=$(grep -oP '(0\.0\.0\.0|127\.0\.0\.1):\K[0-9]*57' .side/config/config.toml)
-/root/.side/cosmovisor/upgrades/v0.9.3/bin/sided --node tcp://0.0.0.0:$PORT tx slashing unjail --from wallet --keyring-backend test --gas auto --gas-adjustment 1.5 --fees ${fees}uside --chain-id sidechain-testnet-4 -y
+$(which sided) --node tcp://0.0.0.0:$PORT tx slashing unjail --from wallet --keyring-backend test --gas auto --gas-adjustment 1.5 --fees ${fees}uside --chain-id sidechain-testnet-4 -y
 
-/root/.side/cosmovisor/upgrades/v0.9.3/bin/sided keys delete wallet --keyring-backend test -y
+$(which sided) keys delete wallet --keyring-backend test -y
 
 rm side_unjail.sh
