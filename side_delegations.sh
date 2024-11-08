@@ -9,7 +9,9 @@ DENOM="uside"
 AMOUNT_MIN=39000000               
 AMOUNT_MAX=48999999              
 MIN_DELEGATORS=6               
-MAX_DELEGATORS=15           
+MAX_DELEGATORS=15
+SLEEP_MIN=0
+SLEEP_MAX=30
 
 echo "Tx logs file" > "$LOG_FILE"
 echo "------------------------------------------" >> "$LOG_FILE"
@@ -33,6 +35,10 @@ delegate() {
     echo "Wallet: $delegator_address -> Validator: $validator, Sum: $amount$DENOM" >> "$LOG_FILE"
 
     cosmosd keys delete "$wallet_name" --keyring-backend test --yes > /dev/null
+
+    sleep_time=$((RANDOM % (SLEEP_MAX - SLEEP_MIN + 1) + SLEEP_MIN))
+    echo "Sleeping $sleep_time seconds..."
+    sleep "$sleep_time"
 }
 
 readarray -t mnemonics < "$MNEMONICS_FILE"
