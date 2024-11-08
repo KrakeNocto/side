@@ -69,9 +69,6 @@ for validator in "${validators[@]}"; do
         index=$((RANDOM % ${#mnemonics[@]}))
         mnemonic="${mnemonics[$index]}"
         mnemonics=("${mnemonics[@]:0:$index}" "${mnemonics[@]:$((index + 1))}")
-    
-    for ((i=0; i<num_delegators; i++)); do
-        mnemonic=${mnemonics[RANDOM % ${#mnemonics[@]}]}
         
         amount=$((RANDOM % (AMOUNT_MAX - AMOUNT_MIN + 1) + AMOUNT_MIN))
         
